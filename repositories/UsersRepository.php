@@ -2,6 +2,7 @@
 
 namespace Repositories;
 require_once '../database/MySQLConnection.php';
+
 use Database\MySQLConnection;
 
 class UsersRepository
@@ -11,9 +12,6 @@ class UsersRepository
      */
     private $connection = null;
 
-    /**
-     * @param MySQLConnection $conn
-     */
     public function __construct()
     {
         $this->connection = MySQLConnection::getInstance();
@@ -24,19 +22,13 @@ class UsersRepository
           @param string $username username
           @param string $password password
           @return bool
-
          */
-
     public function login(string $username, string $password): bool
     {
         $check_login_sql = "SELECT * FROM users WHERE uname=? AND password=?";
 
         $this->connection->queryExecute($check_login_sql, 'ss', array($username, $password));
+        return $this->connection->numRows();
 
-        if ($this->connection->numRows() == 1) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 }
