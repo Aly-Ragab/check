@@ -1,7 +1,7 @@
 <?php
 
 namespace Database;
-
+require_once '../contracts/iDBConnection.php';
 use Contracts\iDBConnection;
 use mysqli;
 
@@ -21,7 +21,7 @@ class MySQLConnection implements iDBConnection
      */
     private function __construct()
     {
-        $db_config = parse_ini_file(DOCUMENT_API_URL . 'config/db.ini');
+        $db_config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/db.ini');
         $this->host = $db_config['host'];
         $this->username = $db_config['username'];
         $this->password = $db_config['password'];
